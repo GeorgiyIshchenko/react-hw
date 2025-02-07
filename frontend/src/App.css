@@ -36,3 +36,32 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 10px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}

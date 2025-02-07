@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage() {
@@ -6,14 +6,35 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  const getCookie = (name) => {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const csrftoken = getCookie('csrftoken');  // Get CSRF token from cookies
+
     try {
       const response = await fetch('/api/login/', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken // Include CSRF token in the headers
+        },
         body: JSON.stringify({ username, password }),
       });
+      
       if (response.ok) {
         localStorage.setItem('isAuth', 'true');
         navigate('/products');

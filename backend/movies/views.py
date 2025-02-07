@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
 from rest_framework import viewsets, pagination
 from rest_framework.response import Response
@@ -19,10 +20,11 @@ class MovieViewSet(viewsets.ModelViewSet):
     pagination_class = MoviePagination
 
 @api_view(['POST'])
+@csrf_exempt
 def login_view(request):
     username = request.data.get('username')
     password = request.data.get('password')
-    user = authenticate(username=username, password=password)
+    user = authenticate(request, username=username, password=password)
     if user is not None:
         return Response({'detail': 'Login successful'}, status=status.HTTP_200_OK)
     else:

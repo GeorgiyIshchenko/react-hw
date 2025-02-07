@@ -5,7 +5,6 @@ import useServerGoods from '../hooks/useServerGoods';
 export default function ProductsPage() {
   const navigate = useNavigate();
 
-  // Проверяем, залогинен ли пользователь
   useEffect(() => {
     const isAuth = localStorage.getItem('isAuth');
     if (!isAuth) {
@@ -25,7 +24,7 @@ export default function ProductsPage() {
 
   return (
     <div>
-      <h1>Список фильмов</h1>
+      <h1 className="container">Список фильмов</h1>
       {movies.length ? (
         <table border="1">
           <thead>

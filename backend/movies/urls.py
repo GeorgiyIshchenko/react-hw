@@ -6,6 +6,6 @@ router = DefaultRouter()
 router.register(r'movies', MovieViewSet, basename='movies')
 
 urlpatterns = [
-    path('', include(router.urls)),
     path('login/', login_view, name='login'),
+    path('', include(router.urls)),
 ]
